@@ -1,4 +1,5 @@
 import sys
+from fnmatch import  *
 
 
 ##########stats_parser function takes 2 arguments
@@ -21,19 +22,60 @@ def stats_parser (*args):
 
         x_axis_data_points = []
         y_axis_data_points = []
+
         for i in range(len(data_list)):
             data_sample = (dict(data_list[i]))
             key = data_sample.keys()
             if key[0] == 'x':
-                x_axis_data_points.extend(data_sample.values())
+                x_axis_data_points.append(data_sample.values())
             elif key[0] == 'y':
-                y_axis_data_points.extend(data_sample.values())
+                y_axis_data_points.append(data_sample.values())
 
+        x_list_collection = str(x_axis_data_points.__getitem__(0)).split(",")
+        y_list_collection = str(y_axis_data_points.__getitem__(0)).split(",")
+        x_temp = []
+        y_temp = []
+
+        for i in range(len(x_list_collection)):
+            if '[' in x_list_collection[i]:
+                print "gameon for ["
+                x_temp = str(x_list_collection.__getitem__(i)).split("[")
+                y_temp = str(y_list_collection.__getitem__(i)).split("[")
+        for i in range(len(x_list_collection)):
+            if '[' in x_list_collection[i]:
+                print "skipping for data alignment"
+            else:
+                x_temp.append(str(x_list_collection.__getitem__(i)))
+                y_temp.append(str(y_list_collection.__getitem__(i)))
+        x_list_collection = []
+        y_list_collection = []
+        for i in range(len(x_temp)):
+            if ']' in x_temp[i]:
+                print "gameon for ]"
+                x_list_collection = str(x_temp.__getitem__(i)).split("]")
+                y_list_collection = str(y_temp.__getitem__(i)).split("]")
+        x2_temp = []
+        y2_temp = []
+        for i in range (len(x_temp)):
+            if ']' in x_temp[i]:
+                print "skipping for data alignment"
+            elif 'u' in x_temp[i]:
+                print "skipping for data alignment"
+            else:
+                x2_temp.append(str(x_temp.__getitem__(i)))
+                y2_temp.append(str(y_temp.__getitem__(i)))
+        x2_temp.append(str(x_list_collection.__getitem__(0)))
+        y2_temp.append(str(y_list_collection.__getitem__(0)))
+
+        x_axis_data_points = []
+        y_axis_data_points = []
+        x_axis_data_points = x2_temp
+        y_axis_data_points = y2_temp
+        print x_axis_data_points
+        print y_axis_data_points
         return x_axis_data_points, y_axis_data_points
     else:
         print "Data parser type not supported"
         sys.exit()
-
-
 
 
