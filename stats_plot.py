@@ -56,4 +56,60 @@ def stats_plot_2d_graph(x_label, y_label, x_cordinate_data = [],y_cordinate_data
     show()
 
 
+#######stats_plot_2d_graph_series_plot
+######### argument list given below, kindly follow the order in which the arguments are mentioned.
+###########1. x_keys --> label for x axis.
+###########2. y_keys --> label for y axis.
+###########3. x_cordinate_data --> x_axis plot data.
+###########4. y_cordinate_data --> y_axis plot data.
 
+
+
+def stats_plot_2d_graph_series_plot(x_axis_key = [], y_axis_key = [], x_cordinate_values = [], y_cordinate_values = []):
+
+    array_x = []
+    array_y = []
+    color_value = 0
+    x_range_value = []
+    y_range_value = []
+    print len(x_cordinate_values.__getitem__(x_axis_key[0]))
+    print len(y_cordinate_values.__getitem__(y_axis_key[0]))
+    for i in range(len(x_axis_key)):
+        for j in range(len(x_cordinate_values.__getitem__(x_axis_key[i]))):
+            x_range_value = x_cordinate_values.__getitem__(x_axis_key[i])
+            y_range_value = y_cordinate_values.__getitem__(y_axis_key[i])
+            array_x.insert(i,float(x_range_value[i]))
+            array_y.insert(i,float(y_range_value[i]))
+
+        if color_value == 0:
+           plot (array_x,array_y,'bo')
+           color_value = color_value.__int__() + 1
+        elif color_value == 1:
+           plot (array_x,array_y,'ro')
+           color_value = color_value.__int__() + 1
+        else:
+           print "bye bye have a nice day"
+        array_x = []
+        array_y = []
+
+        #print len(array_x)
+
+
+    show()
+
+
+    #list_temp_x = []
+    #list_temp_y = {}
+    #for i in range(len(x_axis_key)):
+    #    list_temp_x = str(array_x[i])
+    #    float_temp_x = float(list_temp_x)
+    #    print statistics.mean(float_temp_x)
+
+
+    #print statistics.mean(array_x[0])
+
+    #for i in range(len(array_x)):
+    #    print array_x[i]
+
+    #print statistics.mean(array_x)
+    #statistics.mean(mean_x.__getitem__(x_axis_key[i]))
