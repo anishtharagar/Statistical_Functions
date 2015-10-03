@@ -79,3 +79,63 @@ def stats_parser (*args):
         sys.exit()
 
 
+def stats_data_parser_series_data(*args):
+    count_arg_length = len(args)
+    if count_arg_length.__str__() != '4':
+        print "List of arguments passed does not match the data type %.3d" % count_arg_length
+        sys.exit()
+    data_parser_type = args.__getitem__(0).__str__()
+    data_list = []
+    data_list = args.__getitem__(1)
+    x_field_names = args.__getitem__(2)
+    y_field_names = args.__getitem__(3)
+    dict_of_values = {}
+    sort_string = []
+    string_value_x = []
+    string_value_y = []
+    remove_brace_x = []
+    remove_brace_y = []
+    x_array = []
+    y_array = []
+    x_list = {}
+    y_list = {}
+
+    if data_parser_type == '2d_graph':
+
+
+        for j in range(len(x_field_names)):
+            for i in range(len(data_list)):
+                   if (str(x_field_names[j]) in data_list[i]) and (str(y_field_names[j]) in data_list[i]):
+                        sort_string = (str(data_list[i]).split(","))
+                        if (x_field_names[j] in sort_string[0]) and (y_field_names[j] in sort_string[1]):
+                            string_value_x = str(sort_string[0]).split(":")
+                            remove_brace_x = str(string_value_x[1]).split("}")
+                            x_array.append(remove_brace_x[0])
+                            #x_list.__setitem__(x_field_names[j],string_value_x[1])
+                            string_value_y = str(sort_string[1]).split(":")
+                            remove_brace_y = str(string_value_y[1]).split("}")
+                            y_array.append(remove_brace_y[0])
+                            #y_list.__setitem__(y_field_names[j],string_value_y[1])
+                        elif (x_field_names[j] in sort_string[1]) and (y_field_names[j] in sort_string[0]):
+                            string_value_x = str(sort_string[1]).split(":")
+                            remove_brace_x = str(string_value_x[1]).split("}")
+                            x_array.append(remove_brace_x[0])
+                            #x_list.__setitem__(x_field_names[j],string_value_x[1])
+                            string_value_y = str(sort_string[0]).split(":")
+                            remove_brace_y = str(string_value_y[1]).split("}")
+                            y_array.append(remove_brace_y[0])
+                           #y_list.__setitem__(y_field_names[j],string_value_y[1])
+                        else:
+                            print "something messed up check data alignment"
+                            sys.exit
+
+            x_list.__setitem__(x_field_names[j],x_array)
+            y_list.__setitem__(y_field_names[j],y_array)
+            x_array = []
+            y_array = []
+
+
+
+
+
+        return x_list,y_list
