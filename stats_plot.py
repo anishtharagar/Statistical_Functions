@@ -1,6 +1,7 @@
 import matplotlib
 from pylab import *
 import statistics
+import datetime
 
 #######stats_plot_2d_graph
 ######### argument list given below, kindly follow the order in which the arguments are mentioned.
@@ -72,26 +73,51 @@ def stats_plot_2d_graph_series_plot(x_axis_key = [], y_axis_key = [], x_cordinat
     color_value = 0
     x_range_value = []
     y_range_value = []
+    date_formatter = []
+    unix_date_format = []
+    year_format = []
+    month_format = []
+    day_format = []
+    isdate = 0
     print len(x_cordinate_values.__getitem__(x_axis_key[0]))
     print len(y_cordinate_values.__getitem__(y_axis_key[0]))
-    for i in range(len(x_axis_key)):
-        for j in range(len(x_cordinate_values.__getitem__(x_axis_key[i]))):
-            x_range_value = x_cordinate_values.__getitem__(x_axis_key[i])
-            y_range_value = y_cordinate_values.__getitem__(y_axis_key[i])
-            array_x.insert(i,float(x_range_value[i]))
-            array_y.insert(i,float(y_range_value[i]))
+    print len(x_axis_key)
+    for k in range(len(x_axis_key)):
+        x_range_value = x_cordinate_values.__getitem__(x_axis_key[k])
+        y_range_value = y_cordinate_values.__getitem__(y_axis_key[k])
 
-        if color_value == 0:
-           plot (array_x,array_y,'bo')
-           color_value = color_value.__int__() + 1
-        elif color_value == 1:
-           plot (array_x,array_y,'ro')
-           color_value = color_value.__int__() + 1
+        for j in range(len(x_cordinate_values.__getitem__(x_axis_key[k]))):
+            if '-' in x_range_value[j]:
+                date_formatter = str(x_range_value[j]).split("u")
+                date_formatter = str(date_formatter[1]).split("'")
+                date_convert = datetime.datetime.strptime(date_formatter[1],'%Y-%m-%d')
+                array_x.insert(k,date_convert)
+                plot_date = []
+                date_formatter = []
+                array_y.insert(k,float(y_range_value[j]))
+            elif '-' in y_range_value[j]:
+                print "ooppsie dates on the y-axis not recommended, kindly align your data"
+                sys.exit()
+            else:
+                array_x.insert(k,float(x_range_value[j]))
+                array_y.insert(k,float(y_range_value[j]))
+        if k == 0:
+            if isdate == 1:
+                plot_date(array_x,array_y)
+            elif isdate == 2:
+                plot_date(array_y,array_x)
+            else:
+                scatter(array_x,array_y)
+           #plot(array_x,array_y,'bo')
+
+        elif k == 1:
+           plot(array_x,array_y,'ro')
         else:
            print "bye bye have a nice day"
+
         array_x = []
         array_y = []
-
+        color_value = color_value.__int__() + 1
         #print len(array_x)
 
 

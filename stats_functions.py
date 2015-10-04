@@ -30,5 +30,5 @@ def stat_functions_usage(mongo_host,mongo_db_name,x_field_name = [], y_field_nam
         #stats_plot.stats_plot_2d_graph("x_label_test","y_label_test",x_axis_data_points,y_axis_data_points)
 
 
-stat_functions_usage('127.0.0.1','raw_data',["rain","meandewpti"],["maxpressurei","mintempi"],["nyc_subset"])
+stat_functions_usage('127.0.0.1','raw_data',["DATEn"],["ENTRIESn_hourly"],["nyc_subset"])
 
